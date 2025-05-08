@@ -1,0 +1,25 @@
+import sqlite3
+
+conn = sqlite3.connect('results.db')
+cursor = conn.cursor()
+
+# টেবিল তৈরি
+cursor.execute('''
+    CREATE TABLE students (
+        roll TEXT PRIMARY KEY,
+        name TEXT,
+        grade TEXT
+    )
+''')
+
+# কিছু ডেমো ডেটা ইনসার্ট
+cursor.executemany('''
+    INSERT INTO students (roll, name, grade) VALUES (?, ?, ?)
+''', [
+    ("101", "Rahim", "A+"),
+    ("102", "Karim", "A"),
+    ("103", "Sumaiya", "B+")
+])
+
+conn.commit()
+conn.close()
